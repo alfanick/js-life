@@ -2,6 +2,8 @@ class Life.Rules
   initial_state: null
   states: {}
 
+  next: (state) ->
+    return state
 
   step: (state, neighbours) ->
     return state
@@ -13,6 +15,10 @@ class Life.Rules.Conway extends Life.Rules
     dead: 0
     alive: 1
 
+  next_states:
+    0: 1
+    1: 0
+
 
   step: (state, neighbours) ->
     alive = neighbours.count(@states.alive)
@@ -23,4 +29,8 @@ class Life.Rules.Conway extends Life.Rules
       return @states.alive
 
     return @states.dead
+
+
+  next: (state) ->
+    return @next_states[state]
 
