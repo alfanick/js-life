@@ -1,4 +1,6 @@
 #= require ./js-life/main
 
+window.life = new Life
+
 document.addEventListener 'DOMContentLoaded', ->
-  new Life
+  window.life.run()

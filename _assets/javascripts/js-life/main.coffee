@@ -3,5 +3,10 @@
 
 class window.Life
   constructor: () ->
-    game = new Life.Game.Conway([10, 10])
+    @controller = new Life.Controller()
+    # game = new Life.Game.Conway([10, 10])
+
+  run: () ->
+    @controller.run()
+
 

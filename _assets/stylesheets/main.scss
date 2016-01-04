@@ -1,3 +1,36 @@
-body {
-  background: yellow;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#life {
+  height: 100vh;
+
+  aside {
+    float: left; 
+
+    width: 25%;
+    height: 100%;
+
+    background: yellow;
+  }
+
+  main {
+    float: left;
+
+    width: 75%;
+    height: 100%;
+
+    background: red;
+
+    #board {
+      background: green;
+
+      width: 75vw;
+      height: 75vw;
+
+      max-height: 100vh;
+      max-width: 100vh;
+    }
+  }
 }

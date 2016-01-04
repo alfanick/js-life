@@ -24,9 +24,9 @@ class Life.Game
 
 
 class Life.Game.Conway extends Life.Game
-  constructor: (size, neighbourhood = Life.Neighbourhood.Star) ->
+  constructor: (size) ->
     rules = new Life.Rules.Conway()
     board = new Life.Board(size, rules.initial_state)
-    neighbours = new neighbourhood()
+    neighbours = new Life.Neighbourhood.Star()
 
     super(board, neighbours, rules)
