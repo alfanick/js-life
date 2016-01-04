@@ -1,0 +1,19 @@
+markdown: kramdown
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      layout: "default"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+assets:
+  prefix: ""
+
+gems:
+  - jekyll-assets
+
