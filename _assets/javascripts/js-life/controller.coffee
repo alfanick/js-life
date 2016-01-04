@@ -3,6 +3,7 @@ class Life.Controller
   rules: {}
   neighbourhoods: {}
   sizes: {}
+  fps: 1
 
 
   rule: (n, v) ->
@@ -17,14 +18,10 @@ class Life.Controller
     @sizes[n] = v
 
 
-  run: ->
+  reset: ->
     @game = Life.Game.build([10, 10], Life.Neighbourhood.Star, Life.Rules.Conway)
 
-    # @game.board.set([2,1], 1)
-    # @game.board.set([2,2], 1)
-    # @game.board.set([2,3], 1)
-
-    @controls_view = new Life.View.Controls(document.getElementById('controls'))
+    @controls_view = new Life.View.Controls(document.getElementById('controls'), this)
     @board_view = new Life.View.Board(document.getElementById('board'), @game.board, @game.rules, true)
     @animate(0.1)
 

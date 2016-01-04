@@ -3,6 +3,34 @@ class Life.View
 
 
 class Life.View.Controls extends Life.View
+  constructor: (element, @controller) ->
+    super(element)
+
+    @rules = element.elements.namedItem('rules')
+    @neighbourhood = element.elements.namedItem('neighbourhood')
+    @size = element.elements.namedItem('size')
+    @fps = element.elements.namedItem('fps')
+    @update_selects()
+
+
+  update_selects: () ->
+    build_option = (text) ->
+      option = document.createElement('option')
+      option.value = option.text = text
+      return option
+
+    for name, _ of @controller.rules
+      @rules.add(build_option(name))
+
+    for name, _ of @controller.neighbourhoods
+      @neighbourhood.add(build_option(name))
+
+    for name, _ of @controller.sizes
+      @size.add(build_option(name))
+
+    for f in ['60', '30', '15', '2', '1', '0.5', '0.2', '0.1', '0.05']
+      @fps.add(build_option(f))
+
 
 
 class Life.View.Board extends Life.View
