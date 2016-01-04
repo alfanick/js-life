@@ -8,7 +8,7 @@ class Life.Game
 
 
   step: () ->
-    new_board = new Life.Board(@board.size, @rules.initial_state)
+    new_board = new Life.Board.Folded(@board.size, @rules.initial_state)
 
     for x in [0...@board.size[0]]
       for y in [0...@board.size[1]]
@@ -27,7 +27,7 @@ class Life.Game
 
   @build: (size, neighbourhood, rules_class) ->
     rules = new rules_class()
-    board = new Life.Board(size, rules.initial_state)
+    board = new Life.Board.Folded(size, rules.initial_state)
     neighbours = new neighbourhood()
 
     return new Life.Game(board, neighbours, rules)

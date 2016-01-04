@@ -29,3 +29,12 @@ class Life.Board
   set: (position, state) ->
     @matrix[position[0]][position[1]] = state
     return this
+
+
+class Life.Board.Folded extends Life.Board
+  transform: (position) ->
+    transformed = [position[0] % @size[0], position[1] % @size[1]]
+    transformed[0] += @size[0] if transformed[0] < 0
+    transformed[1] += @size[1] if transformed[1] < 0
+
+    return transformed
