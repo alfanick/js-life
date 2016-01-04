@@ -91,7 +91,7 @@ class Life.View.Board extends Life.View
     index = 0
 
     for _, state of @rules.states
-      c = ((max_index - index) * 255 / max_index).toString(16)
+      c = Math.floor((max_index - index) * 255 / max_index).toString(16)
       @colors[state] = "##{c}#{c}#{c}"
       index++
 

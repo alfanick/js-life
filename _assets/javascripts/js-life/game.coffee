@@ -23,10 +23,11 @@ class Life.Game
     @neighbours.on(@board)
 
 
-class Life.Game.Conway extends Life.Game
-  constructor: (size) ->
-    rules = new Life.Rules.Conway()
+  @build: (size, neighbourhood, rules_class) ->
+    rules = new rules_class()
     board = new Life.Board(size, rules.initial_state)
-    neighbours = new Life.Neighbourhood.Star()
+    neighbours = new neighbourhood()
 
-    super(board, neighbours, rules)
+    return new Life.Game(board, neighbours, rules)
+
+
