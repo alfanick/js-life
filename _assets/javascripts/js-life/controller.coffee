@@ -18,12 +18,17 @@ class Life.Controller
     @sizes[n] = v
 
 
-  reset: ->
-    @game = Life.Game.build([10, 10], Life.Neighbourhood.Star, Life.Rules.Conway)
-
+  constructor: ->
     @controls_view = new Life.View.Controls(document.getElementById('controls'), this)
+
+
+  reset: (ri, ni, si) ->
+    @stop_animation()
+    @controls_view.update_selects(ri, ni, si)
+    @controls_view.update_generation(0)
+
+    @game = Life.Game.build(@sizes[si], @neighbourhoods[ni], @rules[ri])
     @board_view = new Life.View.Board(document.getElementById('board'), @game.board, @game.rules, true)
-    @animate(0.1)
 
 
   stop_animation: () ->
@@ -54,5 +59,6 @@ class Life.Controller
 
     @board_view.board = @game.board
     @board_view.draw()
+    @controls_view.update_generation(@game.generation)
 
 

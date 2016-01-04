@@ -1,5 +1,6 @@
 class Life.Game
   board: null
+  generation: -1
 
 
   constructor: (board, @neighbours, @rules) ->
@@ -15,6 +16,7 @@ class Life.Game
         new_state = @rules.step(@board.at(position), @neighbours.of(position))
         new_board.set(position, new_state)
 
+    @generation++
     @switch_board(new_board)
 
 

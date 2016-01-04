@@ -21,6 +21,6 @@ class window.Life
     # game = new Life.Game.Conway([10, 10])
 
   run: () ->
-    @controller.reset()
+    @controller.reset("Original Conway", "Moore (8-star)", "Medium (40x40)")
 
 

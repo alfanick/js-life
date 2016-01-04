@@ -3,31 +3,85 @@
   padding: 0;
 }
 
+body {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  background: #f5f5f5;
+}
+
 #life {
   height: 100vh;
 
   aside {
-    float: left; 
+    float: right; 
+    padding: 1em;
 
     width: 25%;
-    height: 100%;
+    font-size: 1.2vw;
+    // height: 100%;
 
-    background: yellow;
+    h1 {
+      font-size: 4em;
+      font-weight: 300;
+      margin-bottom: 0.5em;
+    }
+
+    #controls {
+      label {
+        display: block;
+        font-size: 2em;
+        font-weight: 200;
+        margin-bottom: 0.1em;
+      }
+
+      select {
+        margin-bottom: 2em;
+      }
+
+      button {
+        float: left;
+        font-weight: 300;
+        font-size: 1.5em;
+        padding: 0.2em;
+        display: inline-block;
+        border: 1px black solid;
+        background: transparent;
+
+        width: 30%;
+        margin-bottom: 4px;
+        margin-right: 1%;
+
+        &:hover, &:active {
+          background: black;
+          color: #f5f5f5;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+
+          &:hover {
+            background: transparent;
+            color: black;
+          }
+        }
+      }
+
+      button#step {
+        width: 92%;
+      }
+    }
   }
 
   main {
-    float: left;
+    // float: right;
 
-    width: 75%;
+    width: 70%;
     height: 100%;
 
-    background: red;
-
     #board {
-      background: green;
+      float: right;
 
-      width: 75vw;
-      height: 75vw;
+      width: 70vw;
+      height: 70vw;
 
       max-height: 100vh;
       max-width: 100vh;

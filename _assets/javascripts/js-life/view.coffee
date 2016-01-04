@@ -10,26 +10,85 @@ class Life.View.Controls extends Life.View
     @neighbourhood = element.elements.namedItem('neighbourhood')
     @size = element.elements.namedItem('size')
     @fps = element.elements.namedItem('fps')
+    @buttons =
+      'step': element.elements.namedItem('step')
+      'start': element.elements.namedItem('start')
+      'pause': element.elements.namedItem('pause')
+      'reset': element.elements.namedItem('reset')
+
+    @update_generation(0)
     @update_selects()
+    @handle_events()
 
 
-  update_selects: () ->
-    build_option = (text) ->
+  handle_events: () ->
+    @buttons['step'].addEventListener 'click', (e) =>
+      e.preventDefault()
+      @controller.step()
+      return false
+
+    @buttons['start'].addEventListener 'click', (e) =>
+      e.preventDefault()
+      @controller.animate(@controller.fps)
+      @buttons['pause'].disabled = false
+      @buttons['start'].disabled = true
+      return false
+
+    @buttons['pause'].addEventListener 'click', (e) =>
+      e.preventDefault()
+      @controller.stop_animation()
+      @buttons['start'].disabled = false
+      @buttons['pause'].disabled = true
+      return false
+
+    @buttons['reset'].addEventListener 'click', (e) =>
+      e.preventDefault()
+      @build(e)
+      return false
+
+    @fps.addEventListener 'change', (e) =>
+      @controller.fps = parseFloat(@fps.value)
+      @controller.stop_animation()
+      @controller.animate(@controller.fps)
+
+    @rules.addEventListener('change', @build.bind(this))
+    @neighbourhood.addEventListener('change', @build.bind(this))
+    @size.addEventListener('change', @build.bind(this))
+
+
+  update_generation: (g) ->
+    @buttons['step'].innerHTML = "Step (#{g})"
+
+
+  build: (e) ->
+    @controller.reset(@rules.value, @neighbourhood.value, @size.value)
+    @buttons['start'].disabled = false
+    @buttons['pause'].disabled = true
+
+
+  update_selects: (ri, ni, si) ->
+    build_option = (text, index) ->
       option = document.createElement('option')
       option.value = option.text = text
+      if text == index
+        option.selected = true
       return option
 
+    @rules.innerHTML = ''
     for name, _ of @controller.rules
-      @rules.add(build_option(name))
+      @rules.add(build_option(name, ri))
 
+    @neighbourhood.innerHTML = ''
     for name, _ of @controller.neighbourhoods
-      @neighbourhood.add(build_option(name))
+      @neighbourhood.add(build_option(name, ni))
 
+    @size.innerHTML = ''
     for name, _ of @controller.sizes
-      @size.add(build_option(name))
+      @size.add(build_option(name, si))
 
+    @fps.innerHTML = ''
     for f in ['60', '30', '15', '2', '1', '0.5', '0.2', '0.1', '0.05']
-      @fps.add(build_option(f))
+      @fps.add(build_option(f, "" + @controller.fps))
 
 
 
@@ -56,6 +115,9 @@ class Life.View.Board extends Life.View
     @element.addEventListener('mousedown', @on_click.bind(this), false)
     @element.addEventListener('mousemove', @on_move.bind(this), false)
     @element.addEventListener('mouseout', @on_out.bind(this), false)
+    window.addEventListener 'resize', (e) =>
+      @update_size()
+      @draw()
 
 
   on_click: (event) ->
