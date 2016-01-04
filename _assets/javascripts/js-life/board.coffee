@@ -7,7 +7,12 @@ class Life.Board
 
 
   reset: () ->
-    @matrix = new Array(@size[0]).fill(new Array(@size[1]).fill(@default_state))
+    @matrix = []
+
+    for x in [0...@size[0]]
+      @matrix[x] = []
+      for y in [0...@size[1]]
+        @matrix[x][y] = @default_state
 
 
   transform: (position) ->
@@ -19,3 +24,8 @@ class Life.Board
 
   at: (position) ->
     return @matrix[position[0]][position[1]]
+
+
+  set: (position, state) ->
+    @matrix[position[0]][position[1]] = state
+    return this

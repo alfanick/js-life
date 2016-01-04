@@ -1,9 +1,13 @@
 class Life.Neighbourhood
+  board: null
   vectors: []
 
 
-  constructor: (@board) ->
+  constructor: () ->
     @position = [0, 0]
+
+  on: (@board) ->
+    return this
 
 
   of: (@position) ->

@@ -15,15 +15,12 @@ class Life.Rules.Conway extends Life.Rules
 
 
   step: (state, neighbours) ->
-    alive = neighbours.of(position).count(@states.alive)
+    alive = neighbours.count(@states.alive)
 
     if state == @states.dead and alive == 3
       return @states.alive
-    else
-      if 2 <= alive <= 3
-        return @states.alive
-      else
-        return @states.dead
+    else if state == @states.alive and  2 <= alive <= 3
+      return @states.alive
 
-    return state
+    return @states.dead
 
