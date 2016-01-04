@@ -48,8 +48,9 @@ class Life.View.Controls extends Life.View
 
     @fps.addEventListener 'change', (e) =>
       @controller.fps = parseFloat(@fps.value)
-      @controller.stop_animation()
-      @controller.animate(@controller.fps)
+      if @controller.animation
+        @controller.stop_animation()
+        @controller.animate(@controller.fps)
 
     @rules.addEventListener('change', @build.bind(this))
     @neighbourhood.addEventListener('change', @build.bind(this))
