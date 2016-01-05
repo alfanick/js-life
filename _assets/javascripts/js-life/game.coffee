@@ -1,6 +1,6 @@
 class Life.Game
   board: null
-  generation: -1
+  generation: 0
 
 
   constructor: (@board_class, board, @neighbours, @rules) ->
