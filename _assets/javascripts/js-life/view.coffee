@@ -115,7 +115,7 @@ class Life.View.Board extends Life.View
 
     @handle_events() if @interactive
 
-    @draw()
+    window.requestAnimationFrame(@draw.bind(this))
 
 
   handle_events: () ->
@@ -124,7 +124,7 @@ class Life.View.Board extends Life.View
     @element.addEventListener('mouseout', @on_out.bind(this), false)
     window.addEventListener 'resize', (e) =>
       @update_size()
-      @draw()
+      window.requestAnimationFrame(@draw.bind(this))
 
 
   on_click: (event) ->
@@ -134,7 +134,7 @@ class Life.View.Board extends Life.View
     y = Math.floor((event.pageY - @offset[1]) / @cell_size[1])
 
     @board.set([x, y], @rules.next(@board.at([x, y])))
-    @draw()
+    window.requestAnimationFrame(@draw.bind(this))
 
 
   on_move: (event) ->
@@ -144,14 +144,14 @@ class Life.View.Board extends Life.View
     y = Math.floor((event.pageY - @offset[1]) / @cell_size[1])
 
     @temporary_position = [x, y]
-    @draw()
+    window.requestAnimationFrame(@draw.bind(this))
 
 
   on_out: (event) ->
     return unless @interactive
 
     @temporary_position = null
-    @draw()
+    window.requestAnimationFrame(@draw.bind(this))
 
 
   draw: () ->
