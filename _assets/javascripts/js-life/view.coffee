@@ -105,17 +105,19 @@ class Life.View.Board extends Life.View
   temporary_position: null
 
 
-  constructor: (element, @board, @rules, @interactive) ->
+  constructor: (element, board, rules, @interactive) ->
     super(element)
 
     @context = element.getContext('2d')
-
-    @update_colors()
-    @update_size()
-
     @handle_events() if @interactive
 
-    window.requestAnimationFrame(@draw.bind(this))
+    @reset(board, rules)
+
+
+  reset: (@board, @rules) ->
+    @update_colors()
+    @update_size()
+    @draw()
 
 
   handle_events: () ->
