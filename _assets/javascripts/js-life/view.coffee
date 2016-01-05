@@ -9,6 +9,7 @@ class Life.View.Controls extends Life.View
     @rules = element.elements.namedItem('rules')
     @neighbourhood = element.elements.namedItem('neighbourhood')
     @size = element.elements.namedItem('size')
+    @board_type = element.elements.namedItem('board_type')
     @fps = element.elements.namedItem('fps')
     @buttons =
       'step': element.elements.namedItem('step')
@@ -55,6 +56,7 @@ class Life.View.Controls extends Life.View
     @rules.addEventListener('change', @build.bind(this))
     @neighbourhood.addEventListener('change', @build.bind(this))
     @size.addEventListener('change', @build.bind(this))
+    @board_type.addEventListener('change', @build.bind(this))
 
 
   update_generation: (g) ->
@@ -62,12 +64,12 @@ class Life.View.Controls extends Life.View
 
 
   build: (e) ->
-    @controller.reset(@rules.value, @neighbourhood.value, @size.value)
+    @controller.reset(@rules.value, @neighbourhood.value, @board_type.value, @size.value)
     @buttons['start'].disabled = false
     @buttons['pause'].disabled = true
 
 
-  update_selects: (ri, ni, si) ->
+  update_selects: (ri, ni, bi, si) ->
     build_option = (text, index) ->
       option = document.createElement('option')
       option.value = option.text = text
@@ -86,6 +88,10 @@ class Life.View.Controls extends Life.View
     @size.innerHTML = ''
     for name, _ of @controller.sizes
       @size.add(build_option(name, si))
+
+    @board_type.innerHTML = ''
+    for name, _ of @controller.boards
+      @board_type.add(build_option(name, bi))
 
     @fps.innerHTML = ''
     for f in ['60', '30', '15', '2', '1', '0.5', '0.2', '0.1', '0.05']

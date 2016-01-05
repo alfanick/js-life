@@ -12,6 +12,9 @@ class window.Life
     @controller.neighbourhood "Neumann (4-cross)", Life.Neighbourhood.Cross
     @controller.neighbourhood "Moore (8-star)", Life.Neighbourhood.Star
 
+    @controller.board "Rectangle (bounded)", Life.Board
+    @controller.board "Torus (folded)", Life.Board.Folded
+
     @controller.size "Extra Small (10x10)", [10, 10]
     @controller.size "Small (20x20)", [20, 20]
     @controller.size "Medium (40x40)", [40, 40]
@@ -21,6 +24,6 @@ class window.Life
     # game = new Life.Game.Conway([10, 10])
 
   run: () ->
-    @controller.reset("Original Conway", "Moore (8-star)", "Medium (40x40)")
+    @controller.reset("Original Conway", "Moore (8-star)", "Rectangle (bounded)", "Medium (40x40)")
 
 

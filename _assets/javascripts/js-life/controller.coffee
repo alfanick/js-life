@@ -3,6 +3,7 @@ class Life.Controller
   rules: {}
   neighbourhoods: {}
   sizes: {}
+  boards: {}
   fps: 1
 
 
@@ -18,16 +19,20 @@ class Life.Controller
     @sizes[n] = v
 
 
+  board: (n, v) ->
+    @boards[n] = v
+
+
   constructor: ->
     @controls_view = new Life.View.Controls(document.getElementById('controls'), this)
 
 
-  reset: (ri, ni, si) ->
+  reset: (ri, ni, bi, si) ->
     @stop_animation()
-    @controls_view.update_selects(ri, ni, si)
+    @controls_view.update_selects(ri, ni, bi, si)
     @controls_view.update_generation(0)
 
-    @game = Life.Game.build(@sizes[si], @neighbourhoods[ni], @rules[ri])
+    @game = Life.Game.build(@boards[bi], @sizes[si], @neighbourhoods[ni], @rules[ri])
     @board_view = new Life.View.Board(document.getElementById('board'), @game.board, @game.rules, true)
 
 

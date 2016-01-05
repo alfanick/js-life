@@ -3,12 +3,12 @@ class Life.Game
   generation: -1
 
 
-  constructor: (board, @neighbours, @rules) ->
+  constructor: (@board_class, board, @neighbours, @rules) ->
     @switch_board(board)
 
 
   step: () ->
-    new_board = new Life.Board.Folded(@board.size, @rules.initial_state)
+    new_board = new @board_class(@board.size, @rules.initial_state)
 
     for x in [0...@board.size[0]]
       for y in [0...@board.size[1]]
@@ -25,11 +25,11 @@ class Life.Game
     @neighbours.on(@board)
 
 
-  @build: (size, neighbourhood, rules_class) ->
+  @build: (board_class, size, neighbourhood, rules_class) ->
     rules = new rules_class()
-    board = new Life.Board.Folded(size, rules.initial_state)
+    board = new board_class(size, rules.initial_state)
     neighbours = new neighbourhood()
 
-    return new Life.Game(board, neighbours, rules)
+    return new Life.Game(board_class, board, neighbours, rules)
 
 
