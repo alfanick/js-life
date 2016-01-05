@@ -1,35 +1,40 @@
 class Life.Game
-  board: null
   generation: 0
+  boards: [null, null]
+  board: null
 
 
-  constructor: (@board_class, board, @neighbours, @rules) ->
-    @switch_board(board)
+  constructor: (board, @size, @neighbours, @rules) ->
+    @boards = [
+      new board(@size, @rules.initial_state),
+      new board(@size, @rules.initial_state)
+    ]
+    @switch_board(@boards[0])
 
 
   step: () ->
-    new_board = new @board_class(@board.size, @rules.initial_state)
+    current = if @board == @boards[0] then @boards[1] else @boards[0]
+    previous = @board
 
-    for x in [0...@board.size[0]]
-      for y in [0...@board.size[1]]
+    for x in [0...@size[0]]
+      for y in [0...@size[1]]
         position = [x, y]
-        new_state = @rules.step(@board.at(position), @neighbours.of(position))
-        new_board.set(position, new_state)
+        new_state = @rules.step(previous.at(position), @neighbours.of(position))
+        current.set(position, new_state)
 
+    @switch_board(current)
     @generation++
-    @switch_board(new_board)
 
 
   switch_board: (new_board) ->
     @board = new_board
-    @neighbours.on(@board)
+    @neighbours.on(new_board)
 
 
   @build: (board_class, size, neighbourhood, rules_class) ->
     rules = new rules_class()
-    board = new board_class(size, rules.initial_state)
     neighbours = new neighbourhood()
 
-    return new Life.Game(board_class, board, neighbours, rules)
+    return new Life.Game(board_class, size, neighbours, rules)
 
 
