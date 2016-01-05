@@ -33,6 +33,21 @@ class Life.Rules.Conway extends Life.Rules
     return @states.dead
 
 
+  @rules: (survive, born) ->
+    return class extends Life.Rules.Conway
+      step: (state, neighbours) ->
+        alive = neighbours.count(@states.alive)
+
+        if state == @states.dead and (alive in born)
+          return @states.alive
+
+        if state == @states.alive and (alive in survive)
+          return @states.alive
+
+        return @states.dead
+
+
+
 class Life.Rules.March extends Life.Rules
   initial_state: 0
   states:
@@ -85,4 +100,5 @@ class Life.Rules.Invasion extends Life.Rules
       return @states.active
 
     return @states.dormant
+
 

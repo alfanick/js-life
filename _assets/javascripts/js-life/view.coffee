@@ -167,6 +167,9 @@ class Life.View.Board extends Life.View
       @context.fillStyle = "rgba(255, 0, 255, 0.3)"
       @context.fillRect(@temporary_position[0] * @cell_size[0], @temporary_position[1] * @cell_size[1], @cell_size[0], @cell_size[1])
 
+    @context.fillStyle = "rgba(255, 0, 255, 0.1)"
+    @context.fillRect(@board.size[0]/2 * @cell_size[0] - 1, @board.size[1]/2 * @cell_size[1] - 1, 2, 2)
+
 
   update_size: () ->
     h = Math.min(Math.max(window.innerHeight, document.getElementById('aside').clientHeight), 0.7 * window.innerWidth)

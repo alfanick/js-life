@@ -8,6 +8,10 @@ class window.Life
     @controller.rule "Original Conway", Life.Rules.Conway
     @controller.rule "March", Life.Rules.March
     @controller.rule "Invasion", Life.Rules.Invasion
+    @controller.rule "HighLife", Life.Rules.Conway.rules([2,3], [3,6])
+    @controller.rule "Seeds", Life.Rules.Conway.rules([], [2])
+    @controller.rule "Amoeba", Life.Rules.Conway.rules([1,3,5,8], [3,5,7])
+    @controller.rule "Replicator", Life.Rules.Conway.rules([1,3,5,7], [1,3,5,7])
 
     @controller.neighbourhood "Neumann (4-cross)", Life.Neighbourhood.Cross
     @controller.neighbourhood "Moore (8-star)", Life.Neighbourhood.Star
