@@ -143,6 +143,8 @@ class Life.View.Board extends Life.View
     x = Math.floor((event.pageX - @offset[0]) / @cell_size[0])
     y = Math.floor((event.pageY - @offset[1]) / @cell_size[1])
 
+    return if @temporary_position and @temporary_position[0] == x and @temporary_position[1] == y
+
     @temporary_position = [x, y]
     window.requestAnimationFrame(@draw.bind(this))
 
