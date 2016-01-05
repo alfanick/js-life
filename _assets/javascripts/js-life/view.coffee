@@ -155,6 +155,8 @@ class Life.View.Board extends Life.View
 
 
   draw: () ->
+    @context.clearRect(0, 0, @element.width, @element.height)
+
     for x in [0...@board.size[0]]
       for y in [0...@board.size[1]]
         @context.fillStyle = @colors[@board.at([x, y])]
