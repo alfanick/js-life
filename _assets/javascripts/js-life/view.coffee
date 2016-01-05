@@ -169,6 +169,10 @@ class Life.View.Board extends Life.View
 
 
   update_size: () ->
+    h = Math.min(window.innerHeight, 0.7 * window.innerWidth)
+    @element.style.width = "#{h}px"
+    @element.style.height = "#{h}px"
+
     @hidpi_fix()
 
     box = @element.getBoundingClientRect()
