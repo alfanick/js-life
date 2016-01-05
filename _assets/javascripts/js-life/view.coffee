@@ -105,13 +105,11 @@ class Life.View.Board extends Life.View
   temporary_position: null
 
 
-  constructor: (element, board, rules, @interactive) ->
+  constructor: (element, @interactive) ->
     super(element)
 
     @context = element.getContext('2d')
     @handle_events() if @interactive
-
-    @reset(board, rules)
 
 
   reset: (@board, @rules) ->

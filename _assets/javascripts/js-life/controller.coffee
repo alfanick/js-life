@@ -25,7 +25,7 @@ class Life.Controller
 
   constructor: ->
     @controls_view = new Life.View.Controls(document.getElementById('controls'), this)
-    @board_view = null
+    @board_view = new Life.View.Board(document.getElementById('board'), true)
 
 
   reset: (ri, ni, bi, si) ->
@@ -34,11 +34,7 @@ class Life.Controller
     @controls_view.update_generation(0)
 
     @game = Life.Game.build(@boards[bi], @sizes[si], @neighbourhoods[ni], @rules[ri])
-
-    if not @board_view
-      @board_view = new Life.View.Board(document.getElementById('board'), @game.board, @game.rules, true)
-    else
-      @board_view.reset(@game.board, @game.rules)
+    @board_view.reset(@game.board, @game.rules)
 
 
   stop_animation: () ->
