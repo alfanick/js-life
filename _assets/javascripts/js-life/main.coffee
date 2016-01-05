@@ -12,6 +12,7 @@ class window.Life
     @controller.rule "Seeds", Life.Rules.Conway.rules([], [2])
     @controller.rule "Amoeba", Life.Rules.Conway.rules([1,3,5,8], [3,5,7])
     @controller.rule "Replicator", Life.Rules.Conway.rules([1,3,5,7], [1,3,5,7])
+    @controller.rule "Life Free or Die", Life.Rules.Conway.rules([0], [2])
 
     @controller.neighbourhood "Neumann (4-cross)", Life.Neighbourhood.Cross
     @controller.neighbourhood "Moore (8-star)", Life.Neighbourhood.Star
