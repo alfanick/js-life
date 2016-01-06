@@ -66,8 +66,10 @@ class Life.View.Controls extends Life.View
       e.preventDefault()
 
       return if @saved.value == ""
-
       @controller.load_state(@saved.value)
+      @buttons['start'].disabled = false
+      @buttons['pause'].disabled = true
+
 
       return false
 
