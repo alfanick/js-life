@@ -11,11 +11,14 @@ class Life.View.Controls extends Life.View
     @size = element.elements.namedItem('size')
     @board_type = element.elements.namedItem('board_type')
     @fps = element.elements.namedItem('fps')
+    @saved = element.elements.namedItem('saved')
     @buttons =
       'step': element.elements.namedItem('step')
       'start': element.elements.namedItem('start')
       'pause': element.elements.namedItem('pause')
       'reset': element.elements.namedItem('reset')
+      'load': element.elements.namedItem('load')
+      'save': element.elements.namedItem('save')
 
     @update_generation(0)
     @update_selects()
@@ -47,6 +50,27 @@ class Life.View.Controls extends Life.View
       @build(e)
       return false
 
+    @buttons['save'].addEventListener 'click', (e) =>
+      e.preventDefault()
+      name = window.prompt("Name (saves are local!):", 
+        "#{@rules.value}, #{@board_type.value}, #{@size.value} - #{@controller.game.id}  step #{@controller.game.generation}")
+
+      return if name is null
+      return if name == ""
+
+      @controller.save_state(name)
+
+      return false
+
+    @buttons['load'].addEventListener 'click', (e) =>
+      e.preventDefault()
+
+      return if @saved.value == ""
+
+      @controller.load_state(@saved.value)
+
+      return false
+
     @fps.addEventListener 'change', (e) =>
       @controller.fps = parseFloat(@fps.value)
       if @controller.animation
@@ -69,33 +93,46 @@ class Life.View.Controls extends Life.View
     @buttons['pause'].disabled = true
 
 
-  update_selects: (ri, ni, bi, si) ->
-    build_option = (text, index) ->
-      option = document.createElement('option')
-      option.value = option.text = text
-      if text == index
-        option.selected = true
-      return option
+  build_option: (text, index) ->
+    option = document.createElement('option')
+    option.value = option.text = text
+    if text == index
+      option.selected = true
+    return option
 
+
+  update_selects: (ri, ni, bi, si) ->
     @rules.innerHTML = ''
     for name, _ of @controller.rules
-      @rules.add(build_option(name, ri))
+      @rules.add(@build_option(name, ri))
 
     @neighbourhood.innerHTML = ''
     for name, _ of @controller.neighbourhoods
-      @neighbourhood.add(build_option(name, ni))
+      @neighbourhood.add(@build_option(name, ni))
 
     @size.innerHTML = ''
     for name, _ of @controller.sizes
-      @size.add(build_option(name, si))
+      @size.add(@build_option(name, si))
+
+    @update_saves()
 
     @board_type.innerHTML = ''
     for name, _ of @controller.boards
-      @board_type.add(build_option(name, bi))
+      @board_type.add(@build_option(name, bi))
 
     @fps.innerHTML = ''
     for f in ['60', '30', '15', '2', '1', '0.5', '0.2', '0.1', '0.05']
-      @fps.add(build_option(f, "" + @controller.fps))
+      @fps.add(@build_option(f, "" + @controller.fps))
+
+
+  update_saves: () ->
+    @saved.innerHTML = ''
+    @buttons['load'].disabled = true
+    @saved.add(@build_option("", ""))
+    for name, _ of @controller.saved()
+      @saved.add(@build_option(name, ""))
+      @buttons['load'].disabled = false
+
 
 
 

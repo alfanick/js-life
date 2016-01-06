@@ -65,9 +65,18 @@ body {
         }
       }
 
-      button#step {
+      button#step, button#save, button#load, select#saved {
         width: 92%;
       }
+
+      div {
+        clear: both;
+      }
+    }
+    
+    span.author {
+      display: block;
+      clear: both;
     }
   }
 

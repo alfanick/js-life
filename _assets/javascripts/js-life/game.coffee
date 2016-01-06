@@ -2,9 +2,11 @@ class Life.Game
   generation: 0
   boards: [null, null]
   board: null
+  id: null
 
 
   constructor: (board, @size, @neighbours, @rules) ->
+    @id = Math.random().toString(36).slice(-5)
     @boards = [
       new board(@size, @rules.initial_state),
       new board(@size, @rules.initial_state)

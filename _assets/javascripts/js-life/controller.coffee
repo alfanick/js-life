@@ -28,8 +28,40 @@ class Life.Controller
     @board_view = new Life.View.Board(document.getElementById('board'), true)
 
 
+  save_state: (name) ->
+    states = @saved()
+    states[name] =
+      generation: @game.generation
+      matrix: @game.board.matrix
+      env: @selects
+    localStorage.setItem("saved_games", JSON.stringify(states))
+    @controls_view.update_saves()
+
+
+  load_state: (name) ->
+    @stop_animation()
+    saved = @saved()
+    return if saved == {}
+    state = saved[name]
+    return unless state
+
+    @game = Life.Game.build(@boards[state.env[2]], @sizes[state.env[3]], @neighbourhoods[state.env[1]], @rules[state.env[0]])
+    @game.generation = state.generation
+    @game.board.matrix = state.matrix
+
+    @controls_view.update_selects(state.env[0], state.env[1], state.env[2], state.env[3])
+    @controls_view.update_generation(@game.generation)
+
+    @board_view.reset(@game.board, @game.rules)
+
+
+  saved: ->
+    JSON.parse(localStorage.getItem("saved_games")) or {}
+
+
   reset: (ri, ni, bi, si) ->
     @stop_animation()
+    @selects = [ri, ni, bi, si]
     @controls_view.update_selects(ri, ni, bi, si)
     @controls_view.update_generation(0)
 

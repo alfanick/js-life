@@ -31,15 +31,21 @@
       </div>
 
       <div>
-        <button id="step">Step</button>
+        <button id="step" name="step">Step</button>
       </div>
       <div>
-        <button id="start">Start</button>
-        <button id="pause" disabled>Pause</button>
-        <button id="reset">Reset</button>
+        <button id="start" name="start">Start</button>
+        <button id="pause" name="pause" disabled>Pause</button>
+        <button id="reset" name="reset">Reset</button>
+      </div>
+
+      <div>
+        <button id="save" name="save">Save</button>
+        <button id="load" name="load">Load</button>
+        <select name="saved" id="saved"></select>
       </div>
     </form>
-    <span>Amadeusz Juskowiak 2016</span> <a href="https://github.com/alfanick/js-life">GitHub</a>
+    <span class="author">Amadeusz Juskowiak 2016 <a href="https://github.com/alfanick/js-life">GitHub</a></span>
   </aside>
   <main>
     <canvas id="board">
