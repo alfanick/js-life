@@ -17,7 +17,6 @@ class Life.View.Controls extends Life.View
       'start': element.elements.namedItem('start')
       'pause': element.elements.namedItem('pause')
       'reset': element.elements.namedItem('reset')
-      'load': element.elements.namedItem('load')
       'save': element.elements.namedItem('save')
 
     @update_generation(0)
@@ -62,7 +61,7 @@ class Life.View.Controls extends Life.View
 
       return false
 
-    @buttons['load'].addEventListener 'click', (e) =>
+    @saved.addEventListener 'change', (e) =>
       e.preventDefault()
 
       return if @saved.value == ""
@@ -129,11 +128,9 @@ class Life.View.Controls extends Life.View
 
   update_saves: () ->
     @saved.innerHTML = ''
-    @buttons['load'].disabled = true
     @saved.add(@build_option("", ""))
     for name, _ of @controller.saved()
       @saved.add(@build_option(name, ""))
-      @buttons['load'].disabled = false
 
 
 
