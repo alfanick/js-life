@@ -132,7 +132,8 @@ class Life.View.Controls extends Life.View
     @saved.add(@build_option("", ""))
     for name, _ of @controller.saved()
       @saved.add(@build_option(name, ""))
-
+    for name, _ of @controller.builtin_states
+      @saved.add(@build_option(name, ""))
 
 
 

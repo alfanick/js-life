@@ -4,6 +4,7 @@ class Life.Controller
   neighbourhoods: {}
   sizes: {}
   boards: {}
+  builtin_states: {}
   fps: 1
 
 
@@ -32,8 +33,14 @@ class Life.Controller
     states = @saved()
     states[name] =
       generation: @game.generation
-      matrix: @game.board.matrix
       env: @selects
+
+    compressed_matrix = @game.board.compress_matrix()
+
+    if compressed_matrix.length * 3 < (@game.board.size[0] * @game.board.size[1])
+      states[name]["compressed_matrix"] = compressed_matrix
+    else
+      states[name]["matrix"] = @game.board.matrix
     localStorage.setItem("saved_games_#{@id}", JSON.stringify(states))
     @controls_view.update_saves()
 
@@ -41,13 +48,17 @@ class Life.Controller
   load_state: (name) ->
     @stop_animation()
     saved = @saved()
-    return if saved == {}
     state = saved[name]
+    state = @builtin_states[name] unless state
     return unless state
 
     @game = Life.Game.build(@boards[state.env[2]], @sizes[state.env[3]], @neighbourhoods[state.env[1]], @rules[state.env[0]])
     @game.generation = state.generation
-    @game.board.matrix = state.matrix
+
+    if state.compressed_matrix
+      @game.board.decompress_matrix(state.compressed_matrix)
+    else
+      @game.board.matrix = state.matrix
 
     @controls_view.update_selects(state.env[0], state.env[1], state.env[2], state.env[3])
     @controls_view.update_generation(@game.generation)
