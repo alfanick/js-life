@@ -18,6 +18,7 @@ class Life.View.Controls extends Life.View
       'pause': element.elements.namedItem('pause')
       'reset': element.elements.namedItem('reset')
       'save': element.elements.namedItem('save')
+    @step_name = @buttons['step'].innerHTML
 
     @update_generation(0)
     @update_selects()
@@ -85,7 +86,7 @@ class Life.View.Controls extends Life.View
 
 
   update_generation: (g) ->
-    @buttons['step'].innerHTML = "Step (#{g})"
+    @buttons['step'].innerHTML = "#{@step_name} (#{g})"
 
 
   build: (e) ->
@@ -155,6 +156,9 @@ class Life.View.Board extends Life.View
 
 
   handle_events: () ->
+    @element.addEventListener('contextmenu', ((e) =>
+      e.preventDefault()
+      return false), false)
     @element.addEventListener('mousedown', @on_click.bind(this), false)
     @element.addEventListener('mousemove', @on_move.bind(this), false)
     @element.addEventListener('mouseout', @on_out.bind(this), false)
@@ -169,7 +173,10 @@ class Life.View.Board extends Life.View
     x = Math.floor((event.pageX - @offset[0]) / @cell_size[0])
     y = Math.floor((event.pageY - @offset[1]) / @cell_size[1])
 
-    @board.set([x, y], @rules.next(@board.at([x, y])))
+    if event.which == 3 or event.button == 2
+      @board.set([x, y], @rules.initial_state)
+    else
+      @board.set([x, y], @rules.next(@board.at([x, y])))
     window.requestAnimationFrame(@draw.bind(this))
 
 
@@ -200,6 +207,16 @@ class Life.View.Board extends Life.View
         @context.fillStyle = @colors[@board.at([x, y])]
         @context.fillRect(x * @cell_size[0], y * @cell_size[1],
           @cell_size[0], @cell_size[1])
+
+    @context.beginPath()
+    for x in [1...@board.size[0]]
+      @context.moveTo(x * @cell_size[0], 0)
+      @context.lineTo(x * @cell_size[0], @element.height)
+    for y in [1...@board.size[1]]
+      @context.moveTo(0, y * @cell_size[1])
+      @context.lineTo(@element.width, y * @cell_size[1])
+    @context.strokeStyle = "#f5f5f5"
+    @context.stroke()
 
     if @temporary_position
       @context.fillStyle = "rgba(255, 0, 255, 0.3)"

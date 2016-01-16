@@ -1,9 +1,14 @@
 #= require_self
-#= require_tree .
+#= require ./board
+#= require ./controller
+#= require ./game
+#= require ./neighbourhood
+#= require ./rules
+#= require ./view
 
 class window.Life
   constructor: () ->
-    @controller = new Life.Controller()
+    @controller = new Life.Controller("en")
 
     @controller.rule "Original Conway", Life.Rules.Conway
     @controller.rule "March", Life.Rules.March

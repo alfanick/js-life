@@ -23,7 +23,7 @@ class Life.Controller
     @boards[n] = v
 
 
-  constructor: ->
+  constructor: (@id) ->
     @controls_view = new Life.View.Controls(document.getElementById('controls'), this)
     @board_view = new Life.View.Board(document.getElementById('board'), true)
 
@@ -34,7 +34,7 @@ class Life.Controller
       generation: @game.generation
       matrix: @game.board.matrix
       env: @selects
-    localStorage.setItem("saved_games", JSON.stringify(states))
+    localStorage.setItem("saved_games_#{@id}", JSON.stringify(states))
     @controls_view.update_saves()
 
 
@@ -56,7 +56,7 @@ class Life.Controller
 
 
   saved: ->
-    JSON.parse(localStorage.getItem("saved_games")) or {}
+    JSON.parse(localStorage.getItem("saved_games_#{@id}")) or {}
 
 
   reset: (ri, ni, bi, si) ->

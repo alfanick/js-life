@@ -1,0 +1,55 @@
+---
+---
+
+<div id="life">
+  <aside id="aside">
+    <h1>js-life</h1>
+    <form id="controls">
+      <div>
+        <label for="rules">Rules</label>
+        <select name="rules" id="rules"></select>
+      </div>
+
+      <div>
+        <label for="neighbourhood">Neighbourhood</label>
+        <select name="neighbourhood" id="neighbourhood"></select>
+      </div>
+
+      <div>
+        <label for="size">Board size</label>
+        <select name="size" id="size"></select>
+      </div>
+
+      <div>
+        <label for="board_type">Board type</label>
+        <select name="board_type" id="board_type"></select>
+      </div>
+
+      <div>
+        <label for="fps">FPS</label>
+        <select name="fps" id="fps"></select>
+      </div>
+
+      <div>
+        <button id="step" name="step">Step</button>
+      </div>
+      <div>
+        <button id="start" name="start">Start</button>
+        <button id="pause" name="pause" disabled>Pause</button>
+        <button id="reset" name="reset">Reset</button>
+      </div>
+
+      <div>
+        <button id="save" name="save">Save</button>
+        <select name="saved" id="saved"></select>
+      </div>
+    </form>
+    <span class="author">Amadeusz Juskowiak 2016 <a href="https://github.com/alfanick/js-life">GitHub</a></span>
+  </aside>
+  <main>
+    <canvas id="board">
+    </canvas>
+  </main>
+</div>
+
+{% javascript main_en %}
