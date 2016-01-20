@@ -16,7 +16,7 @@ body {
     padding: 1em;
 
     width: 25%;
-    font-size: 1.2vw;
+    font-size: 0.7em;
     // height: 100%;
 
     h1 {
@@ -87,6 +87,9 @@ body {
     height: 100%;
 
     #board {
+      position: fixed;
+      top: 0;
+      right: 30%;
       background: white;
       float: right;
 
