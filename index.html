@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<script>
+    function openWindow(url, title) {
+        var width = screen.width * 7.5 / 10;
+        var height = screen.height * 8.5 / 10;
+        var left = (screen.width / 2) - (width / 2);
+        var top = (screen.height / 2) - (height / 2);
+        return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+    }
+</script>
+<div id="aisSimulation">
+    <input type="button" onclick="openWindow('./life_pl.html', 'Automat komórkowy: binarne życie')" value="Polski">
+    <input type="button" onclick="openWindow('./life_en.html', 'Cellular automation: binary life')" value="English">
+</div>
