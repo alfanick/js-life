@@ -16,6 +16,7 @@ window.life = new Life
   "size.l": "Large (80x80)"
   "size.xl": "Huge (160x160)"
   "size.xxl": "Ultra Huge (320x320)"
+  "prompt.save": "Saves are local. Name:"
 
 document.addEventListener 'DOMContentLoaded', ->
   window.life.run()

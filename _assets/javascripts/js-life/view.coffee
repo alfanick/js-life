@@ -52,8 +52,8 @@ class Life.View.Controls extends Life.View
 
     @buttons['save'].addEventListener 'click', (e) =>
       e.preventDefault()
-      name = window.prompt("Name (saves are local!):", 
-        "#{@rules.value}, #{@board_type.value}, #{@size.value} - #{@controller.game.id}  step #{@controller.game.generation}")
+      name = window.prompt(@controller.t["prompt.save"], 
+        "#{@controller.t[@rules.value]}, #{@controller.t[@board_type.value]}, #{@controller.t[@size.value]} - #{@controller.game.id} ##{@controller.game.generation}")
 
       return if name is null
       return if name == ""
