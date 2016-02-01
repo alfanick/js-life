@@ -97,7 +97,8 @@ class Life.View.Controls extends Life.View
 
   build_option: (text, index) ->
     option = document.createElement('option')
-    option.value = option.text = text
+    option.value = text
+    option.text = @controller.t[text] || text
     if text == index
       option.selected = true
     return option
