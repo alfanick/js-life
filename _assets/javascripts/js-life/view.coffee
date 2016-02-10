@@ -172,8 +172,8 @@ class Life.View.Board extends Life.View
   on_click: (event) ->
     return unless @interactive
 
-    x = Math.floor((event.pageX - @offset[0]) / @cell_size[0])
-    y = Math.floor((event.pageY - @offset[1]) / @cell_size[1])
+    x = Math.floor((event.clientX - @offset[0]) / @cell_size[0])
+    y = Math.floor((event.clientY - @offset[1]) / @cell_size[1])
 
     if event.which == 3 or event.button == 2
       @board.set([x, y], @rules.initial_state)
@@ -185,10 +185,13 @@ class Life.View.Board extends Life.View
   on_move: (event) ->
     return unless @interactive
 
-    x = Math.floor((event.pageX - @offset[0]) / @cell_size[0])
-    y = Math.floor((event.pageY - @offset[1]) / @cell_size[1])
+    x = Math.floor((event.clientX - @offset[0]) / @cell_size[0])
+    y = Math.floor((event.clientY - @offset[1]) / @cell_size[1])
 
     return if @temporary_position and @temporary_position[0] == x and @temporary_position[1] == y
+
+    if event.which == 1
+      @on_click(event)
 
     @temporary_position = [x, y]
     window.requestAnimationFrame(@draw.bind(this))
