@@ -36,6 +36,7 @@ class Life.View.Controls extends Life.View
       @controller.animate(@controller.fps)
       @buttons['pause'].disabled = false
       @buttons['start'].disabled = true
+
       return false
 
     @buttons['pause'].addEventListener 'click', (e) =>
@@ -43,6 +44,7 @@ class Life.View.Controls extends Life.View
       @controller.stop_animation()
       @buttons['start'].disabled = false
       @buttons['pause'].disabled = true
+      
       return false
 
     @buttons['reset'].addEventListener 'click', (e) =>
@@ -79,10 +81,10 @@ class Life.View.Controls extends Life.View
         @controller.stop_animation()
         @controller.animate(@controller.fps)
 
-    @rules.addEventListener('change', @build.bind(this))
-    @neighbourhood.addEventListener('change', @build.bind(this))
-    @size.addEventListener('change', @build.bind(this))
-    @board_type.addEventListener('change', @build.bind(this))
+    @rules.addEventListener('change', @rebuild.bind(this))
+    @neighbourhood.addEventListener('change', @rebuild.bind(this))
+    @size.addEventListener('change', @rebuild.bind(this))
+    @board_type.addEventListener('change', @rebuild.bind(this))
 
 
   update_generation: (g) ->
@@ -93,6 +95,9 @@ class Life.View.Controls extends Life.View
     @controller.reset(@rules.value, @neighbourhood.value, @board_type.value, @size.value)
     @buttons['start'].disabled = false
     @buttons['pause'].disabled = true
+
+  rebuild: (e) ->
+    @controller.set(@rules.value, @neighbourhood.value, @board_type.value, @size.value)
 
 
   build_option: (text, index) ->

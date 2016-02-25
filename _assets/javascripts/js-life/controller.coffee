@@ -80,6 +80,28 @@ class Life.Controller
     @game = Life.Game.build(@boards[bi], @sizes[si], @neighbourhoods[ni], @rules[ri])
     @board_view.reset(@game.board, @game.rules)
 
+  set: (ri, ni, bi, si) ->
+    return @reset(ri, ni, bi, si) unless @game
+
+    @selects = [ri, ni, bi, si]
+    @controls_view.update_selects(ri, ni, bi, si)
+    
+    @game.neighbours = new @neighbourhoods[ni]()
+    @game.rules = new @rules[ri]()
+    @game.size = @sizes[si]
+
+    @game.boards[0].resize(@game.size, @game.rules.initial_state)
+    @game.boards[1].resize(@game.size, @game.rules.initial_state)
+    @game.boards[0].transform = @boards[bi].prototype.transform
+    @game.boards[1].transform = @boards[bi].prototype.transform
+
+    if @game.board == @game.boards[0]
+      @game.switch_board(@game.boards[0])
+    else
+      @game.switch_board(@game.boards[1])
+
+    @board_view.reset(@game.board, @game.rules)
+
 
   stop_animation: () ->
     window.cancelAnimationFrame(@animation)

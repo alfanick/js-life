@@ -3,6 +3,7 @@ class Life.Game
   boards: [null, null]
   board: null
   id: null
+  neighbours: null
 
 
   constructor: (board, @size, @neighbours, @rules) ->
