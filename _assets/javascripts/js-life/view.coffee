@@ -196,7 +196,11 @@ class Life.View.Board extends Life.View
     return if @temporary_position and @temporary_position[0] == x and @temporary_position[1] == y
 
     if event.which == 1
-      @on_click(event)
+      if event.buttons != undefined
+        if event.buttons == 1
+          @on_click(event)
+      else
+        @on_click(event)
 
     @temporary_position = [x, y]
     window.requestAnimationFrame(@draw.bind(this))
